@@ -1,0 +1,46 @@
+{
+  "DEVICE_METADATA": {
+    "localhost": {
+      "hostname": "SONIC-LEAF-TOR-01",
+      "hwsku": "Accton-AS7712-32X",
+      "type": "LeafRouter",
+      "mac": "70:72:cf:aa:bb:cc"
+    }
+  },
+  "FEATURE": {
+    "ssh": {
+      "status": "enabled",
+      "port": "22",
+      "protocol": "2"
+    },
+    "telnet": {
+      "status": "disabled"
+    },
+    "snmp": {
+      "status": "enabled",
+      "version": "v3"
+    },
+    "syslog": {
+      "status": "enabled",
+      "server": "192.168.100.50"
+    },
+    "ntp": {
+      "status": "enabled",
+      "servers": ["time.cloudflare.com"]
+    }
+  },
+  "AAA": {
+    "authentication": {
+      "login": "local",
+      "fallback": "false",
+      "idle_timeout": 600
+    },
+    "password_policy": {
+      "min_length": 14,
+      "hashing_algorithm": "SHA512"
+    }
+  },
+  "BANNER": {
+    "motd": "RESTRICTED ACCESS - SONIC WHITEBOX DISAGGREGATED SWITCH"
+  }
+}
