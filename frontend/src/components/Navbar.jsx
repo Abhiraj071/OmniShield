@@ -1,12 +1,9 @@
-import React from 'react';
 import { 
   Shield, FileText, Layers, Server, Clock, 
-  Download, LogOut, ChevronRight
+  Download, ChevronRight
 } from 'lucide-react';
 
 export default function Navbar({ 
-  currentUser,
-  onLogout,
   activeTab, 
   setActiveTab, 
   currentReport,
@@ -33,16 +30,6 @@ export default function Navbar({
 
   const isSecondaryActive = secondaryViewLabels[activeTab];
 
-  // Helper for user initials
-  const getInitials = (name) => {
-    if (!name) return 'U';
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
-  };
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-2xs">
@@ -120,30 +107,11 @@ export default function Navbar({
               </button>
             )}
 
-            {/* User Identity Info */}
-            <div className="flex items-center space-x-2 bg-slate-50 border border-slate-200/80 rounded-lg px-2.5 py-1">
-              <div className="w-6 h-6 rounded-md bg-blue-600/10 text-blue-700 flex items-center justify-center font-bold text-[11px]">
-                {getInitials(currentUser?.name)}
-              </div>
-              <div className="text-left leading-none hidden xl:block">
-                <div className="text-xs font-semibold text-slate-800">
-                  {currentUser?.name || 'Operator'}
-                </div>
-                <div className="text-[10px] text-blue-600 font-medium mt-0.5">
-                  Unified Workspace
-                </div>
-              </div>
+            {/* Live Engine Status Badge */}
+            <div className="flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200/80 rounded-lg px-2.5 py-1 text-emerald-700 text-xs font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="hidden sm:inline">Engine Active</span>
             </div>
-
-            {/* Logout Button */}
-            <button
-              onClick={onLogout}
-              title="Sign Out"
-              className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 hover:border-rose-200 transition-colors cursor-pointer"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Sign Out</span>
-            </button>
           </div>
 
         </div>

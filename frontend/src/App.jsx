@@ -19,22 +19,12 @@ import ViewerReports from './components/ViewerReports';
 import ViewerNotifications from './components/ViewerNotifications';
 import ViewerProfile from './components/ViewerProfile';
 import ViewerSettings from './components/ViewerSettings';
-import LoginView from './components/LoginView';
 
 import { ingestConfig, downloadPdfReport, fetchSampleContent, auditDevice } from './api/client';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState(() => {
-    try {
-      const saved = localStorage.getItem('netarmor_user');
-      return saved ? JSON.parse(saved) : null;
-    } catch {
-      return null;
-    }
-  });
-
-  const currentRole = currentUser?.system_role || 'security_admin';
+  const currentRole = 'security_admin';
   const [activeTab, setActiveTab] = useState('dashboard');
   const [activeFramework, setActiveFramework] = useState('CIS');
   const [currentReport, setCurrentReport] = useState(null);
@@ -47,24 +37,6 @@ export default function App() {
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(''), 4000);
-  };
-
-  const handleLoginSuccess = (user) => {
-    setCurrentUser(user);
-    try {
-      localStorage.setItem('netarmor_user', JSON.stringify(user));
-    } catch {}
-    setActiveTab('dashboard');
-    showToast(`Welcome back, ${user.name}! Unified Workspace active.`);
-  };
-
-  const handleLogout = () => {
-    setCurrentUser(null);
-    try {
-      localStorage.removeItem('netarmor_user');
-    } catch {}
-    setActiveTab('dashboard');
-    showToast('Signed out successfully.');
   };
 
   // Initial auto-audit of Cisco sample for rich immediate demo
@@ -187,26 +159,10 @@ export default function App() {
     }
   };
 
-  if (!currentUser) {
-    return (
-      <>
-        <LoginView onLoginSuccess={handleLoginSuccess} />
-        {toastMessage && (
-          <div className="fixed bottom-6 right-6 z-50 bg-white px-4 py-3 rounded-xl border border-slate-200 text-slate-800 text-xs font-medium shadow-lg flex items-center space-x-2.5 transition-all">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span>{toastMessage}</span>
-          </div>
-        )}
-      </>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
       {/* Top Navbar */}
       <Navbar
-        currentUser={currentUser}
-        onLogout={handleLogout}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         currentReport={currentReport}
@@ -331,9 +287,9 @@ export default function App() {
       {/* Enterprise Footer */}
       <footer className="border-t border-slate-200 bg-white py-4 px-6 text-center text-slate-500 text-xs font-medium">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>NetArmor AI • SIH26155 Enterprise Multi-Role Network Compliance Platform</span>
+          <span>NetArmor AI (OmniShield) • Enterprise Network Device Compliance & Hardening Platform</span>
           <span className="text-slate-400">
-            Active Role: <strong className="text-slate-700 capitalize">{currentRole.replace('_', ' ')}</strong> • Standards: CIS • NIST SP 800-53 • DISA STIG • ISO/IEC 27001
+            Standards: CIS Benchmarks • NIST SP 800-53 • DISA STIG • ISO/IEC 27001
           </span>
         </div>
       </footer>
