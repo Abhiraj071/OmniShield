@@ -46,7 +46,7 @@ export default function Navbar({
                 <Shield className="w-4 h-4" />
               </div>
               <div className="flex items-center space-x-1.5">
-                <span className="font-bold text-base tracking-tight text-slate-900">NetArmor</span>
+                <span className="font-bold text-base tracking-tight text-slate-900">OmniShield</span>
                 <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">
                   AI
                 </span>
